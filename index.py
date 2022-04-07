@@ -348,7 +348,7 @@ async def open_source(ctx):
 #команды Sudo
 @bot.command()
 async def sudo_send_ls(ctx, passwd, member: discord.Member, message):
-    if passwd == "2011":
+    if passwd == "****":
         await member.send(f'{message} - это сообщение вам отправил {ctx.author.mention}')
     else:
         mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
@@ -358,7 +358,7 @@ async def sudo_send_ls(ctx, passwd, member: discord.Member, message):
 
 @bot.command()
 async def sudo_clear(ctx, passwd, amouth = 10):
-    if passwd == "2011":
+    if passwd == "****":
         await ctx.channel.purge( limit = amouth )
         embed = discord.Embed(
             title = 'Очистка чата',
@@ -375,7 +375,7 @@ async def sudo_clear(ctx, passwd, amouth = 10):
 
 @bot.command()
 async def sudo_mute(ctx, passwd, member: discord.Member, reason = 'без причины'):
-    if passwd == "2011":
+    if passwd == "****":
             role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
             await member.add_roles(role)
             await ctx.send("Успешно!")
@@ -395,7 +395,7 @@ async def sudo_mute(ctx, passwd, member: discord.Member, reason = 'без при
 
 @bot.command()
 async def sudo_unmute(ctx, passwd, member: discord.Member):
-    if passwd == "2011":
+    if passwd == "****":
         
         role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
         await member.remove_roles(role)
