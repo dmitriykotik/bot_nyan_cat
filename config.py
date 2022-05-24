@@ -1,6 +1,6 @@
 settings = {
-    'token': '(токен скрыт)',
+    'token': 'TOKEN',
     'bot': 'Nyan cat',
-    'id': (Client ID),
+    'id': ID,
     'prefix': '!'
 }

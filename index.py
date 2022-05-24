@@ -1,7 +1,9 @@
 from http import client
-from msilib.schema import Icon
+from msilib.schema import Component, Icon
 from multiprocessing import Manager
 from multiprocessing.connection import Client
+from sqlite3 import connect
+from unicodedata import category
 import discord
 from discord.ext import commands
 from config import settings
@@ -10,6 +12,31 @@ from discord.ext import commands, tasks
 from discord.ext.commands import Bot
 from discord import member
 from discord.utils import get
+import asyncio
+import youtube_dl
+import asyncio
+import functools
+import itertools
+import math
+import random
+import os
+import discord
+import youtube_dl
+from async_timeout import timeout
+from discord.ext import commands
+import pafy
+from discord import FFmpegPCMAudio, PCMVolumeTransformer
+import typing as t
+import discord
+from discord.ext import commands
+from discord_components import DiscordComponents, Button, ButtonStyle
+import os
+from discord import FFmpegPCMAudio
+from discord.ext.commands import Bot
+from discord.utils import get
+import discord
+import requests
+from bs4 import BeautifulSoup as BS
 
 bot = commands.Bot(command_prefix = settings['prefix'])
 
@@ -23,6 +50,16 @@ async def on_command_error(ctx, error):
 
 
 
+#тестирование бота
+@bot.command()
+async def initialization(ctx):
+    embed = discord.Embed(
+        title = 'Успешно!',
+        description = '**Инициализация прошла успешно!**',
+
+    
+    )
+    await ctx.send(embed = embed)
 
 #установить статус бота играет в
 @bot.command()
@@ -78,7 +115,7 @@ async def test_error(ctx, error):
 @bot.command()
 @commands.has_any_role(929030139159924736)
 async def listening(ctx):
-    activity = discord.Activity(type=discord.ActivityType.listening, name="!help | Imagine Dragons - Believer")
+    activity = discord.Activity(type=discord.ActivityType.listening, name="!help | НИКИТА, почини муты")
     await bot.change_presence(status=discord.Status.idle, activity=activity)
     print("Успешно!")
 
@@ -229,6 +266,34 @@ async def test_error(ctx, error):
         )
         await ctx.send(embed = embed) # Отправляем Embed
 
+#срочный размут
+@bot.command()
+@commands.has_any_role(929030139159924736)
+async def Emergency_unmute( ctx, member: discord.Member, reason = 'Без причины' ):
+    role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
+    await member.remove_roles(role)
+    await ctx.send("Успешно!")
+    await ctx.channel.purge( limit = 2 )
+    embed = discord.Embed(
+        title = 'Уведомление',
+        description = f'Пользователь **{member.mention}** был размьючен по экстренной причине: {reason}',
+        colour = discord.Colour.from_rgb( 0, 255, 0 )
+    )
+    await ctx.send( embed = embed )
+    if reason == 'Без причины':
+        role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
+        await member.add_roles(role)
+
+@unmute.error
+async def test_error(ctx, error):
+    if isinstance(error, commands.errors.MissingAnyRole):
+        embed = discord.Embed(
+            title = 'Ошибка!',
+            description = 'К сожалению у вас нет прав на использование данной команды.',
+            colour = discord.Colour.from_rgb(255, 0, 0)
+        )
+        await ctx.send(embed = embed) # Отправляем Embed
+
 #необязан
 @bot.command()
 async def необязан(ctx):
@@ -299,6 +364,8 @@ async def нет( ctx ):
     )
     await ctx.send( embed = embed )
 
+
+
 #бан
 @bot.command()
 @commands.has_any_role(929030139159924736)
@@ -342,13 +409,55 @@ async def open_source(ctx):
     )
     await ctx.send( embed = embed )
 
+#осуждаю
+@bot.command()
+async def ОСУЖДАЮ( ctx, member = discord.member ):
+    embed = discord.Embed(
+        title = 'АХТУНГ!',
+        description = f'ОСУЖДАЮ ТЕБЯ {member}',
+        colour = discord.Colour.from_rgb( 50, 200, 5 )
+    )
+    await ctx.send( embed = embed )
+
+#мьёдик
+@bot.command()
+async def мьёдик(ctx):
+    embed=discord.Embed(title="МЬЁЁЁДИИИИККККК", description="БЖЖЖЖЖЖЖЖЖЖ", color=0xe1ff00)
+    embed.set_author(name="Пчёлка", icon_url="https://qrim.org/wp-content/uploads/2013/10/Pchela.jpg")
+    embed.add_field(name="Купи", value="ВКУСНАЙ МЬЁДИК МОЖНО КУПИТЬ В МАГАЗИНЕ У ИЛЬИ И ПЛЮХИ БЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ, А Я ДАЛЬШЕ ЛЕТАТЬ :)", inline=False)
+    await ctx.send(embed=embed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 #команды Sudo
 @bot.command()
 async def sudo_send_ls(ctx, passwd, member: discord.Member, message):
-    if passwd == "****":
+    if passwd == "9032":
         await member.send(f'{message} - это сообщение вам отправил {ctx.author.mention}')
     else:
         mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
@@ -358,7 +467,7 @@ async def sudo_send_ls(ctx, passwd, member: discord.Member, message):
 
 @bot.command()
 async def sudo_clear(ctx, passwd, amouth = 10):
-    if passwd == "****":
+    if passwd == "9032":
         await ctx.channel.purge( limit = amouth )
         embed = discord.Embed(
             title = 'Очистка чата',
@@ -375,7 +484,7 @@ async def sudo_clear(ctx, passwd, amouth = 10):
 
 @bot.command()
 async def sudo_mute(ctx, passwd, member: discord.Member, reason = 'без причины'):
-    if passwd == "****":
+    if passwd == "9032":
             role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
             await member.add_roles(role)
             await ctx.send("Успешно!")
@@ -395,7 +504,7 @@ async def sudo_mute(ctx, passwd, member: discord.Member, reason = 'без при
 
 @bot.command()
 async def sudo_unmute(ctx, passwd, member: discord.Member):
-    if passwd == "****":
+    if passwd == "9032":
         
         role = discord.utils.get( ctx.message.guild.roles, name = 'Топовая Свинка' )
         await member.remove_roles(role)
@@ -424,13 +533,9 @@ async def sudo_unmute(ctx, passwd, member: discord.Member):
 
 
 
+#альфа раздел
 
-
-
-
-
-
-
+    #кажется пусто :( тут было то что нельзя показывать в публикации
 
 
 
