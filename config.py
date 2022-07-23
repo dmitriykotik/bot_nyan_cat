@@ -1,6 +1,6 @@
 settings = {
-    'token': 'TOKEN',
+    'token': 'token',
     'bot': 'Nyan cat',
-    'id': ID,
-    'prefix': '!'
+    'id': id,
+    'prefix': 'prefix'
 }
